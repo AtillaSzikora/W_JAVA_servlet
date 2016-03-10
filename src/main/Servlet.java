@@ -9,14 +9,19 @@ import java.io.PrintWriter;
 
 public class Servlet extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("test");
         response.setContentType("text/html");
-        request.getRequestDispatcher("login.html").include(request, response);
         PrintWriter out = response.getWriter();
 
         String user = request.getParameter("user");
         String passw = request.getParameter("passw");
 
-        if (user.equals("szikora") && passw.equals("atilla")) out.print(user + "\n" + passw);
+        if (user.equals("szikora") && passw.equals("atilla")) {
+            out.print("Welcome Mr. " + user + "!"); }
+        else {
+            request.getRequestDispatcher("login.html").include(request, response);
+            out.print("Bad user or password!"); }
     }
 }
